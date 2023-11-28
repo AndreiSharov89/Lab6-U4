@@ -1,19 +1,46 @@
 ﻿// Sharov Andrei group 124/11
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FirstClass
 {
-    public class TriExist
+    public class TriCompare
     {
         static void Main()
         {
-            //interface
+            //user interface
             Triangle new1 = NewTriangle();
-            OutputTriangle(new1);
+            Triangle new2 = NewTriangle();
+            if (new1.IsExist() && new2.IsExist())
+            {
+                if (new1.Space() == new2.Space())
+                {
+                    Console.WriteLine("Triangles are equal in space");
+                    OutputTriangle(new1);
+                    OutputTriangle(new2);
+                }
+                else
+                {
+                    Triangle[] triangles = new Triangle[2];
+                    triangles[0] = new1;
+                    triangles[1] = new2;
+                    Array.Sort(triangles);
+                    Console.WriteLine("smaller trianlgle:");
+                    OutputTriangle(triangles[0]);
+                    Console.WriteLine();
+                    Console.WriteLine("bigger trianlgle:");
+                    OutputTriangle(triangles[1]);
+                }
+            }
+            else
+            {
+                Console.WriteLine("Can't compare. Maybe one of triangles does not exist?");
+            }
         }
         
         
@@ -46,6 +73,7 @@ namespace FirstClass
             {
                 Console.WriteLine($"Triangle doesn't exist, sorry.");
             }
+
         }
     }
 }

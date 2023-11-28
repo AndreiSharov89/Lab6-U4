@@ -1,5 +1,6 @@
 ﻿// Sharov Andrei group 124/11
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FirstClass
 {
-    internal class Triangle
+    internal class Triangle:IComparable
     {
         //fields
         private double sideA;
@@ -30,7 +31,7 @@ namespace FirstClass
         }
         public double SideB()
         {
-             return sideB;
+            return sideB;
         }
         public double SideC()
         {
@@ -41,13 +42,13 @@ namespace FirstClass
         //calculated properties
         public double Perimetr()
         {
-            double p = sideA+sideB+sideC;
+            double p = sideA + sideB + sideC;
             return p;
         }
         public double Space()
         {
             double p = (sideA + sideB + sideC) / 2;
-            double s = Math.Sqrt(p*(p-sideA)*(p-sideB)*(p-sideC));
+            double s = Math.Sqrt(p * (p - sideA) * (p - sideB) * (p - sideC));
             if (double.IsRealNumber(s))
             {
                 return s;
@@ -63,5 +64,27 @@ namespace FirstClass
             return isExist;
         }
 
+
+        int IComparable.CompareTo(object obj)
+        {
+            while (obj != null)
+            {
+                Triangle it = (Triangle)obj;
+                if (this.Space() == it.Space())
+                {
+                    return 0;
+                }
+                else if (this.Space() > it.Space())
+                {
+                    return 1;
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+            return -2;
+        }
     }
 }
+
